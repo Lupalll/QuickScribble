@@ -1,8 +1,13 @@
-import { View } from "react-native";
+import { View, Text } from "react-native";
 
 export default function HomePage() {
     return (
-        <View>Hello World</View>
+        <View>
+            <Text>
+                joe Mama
+            </Text>
+
+        </View>
 
     )
     
