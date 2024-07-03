@@ -1,12 +1,76 @@
-import { View, Text } from "react-native";
-
-
+import React, { useState } from 'react';
+import { SafeAreaView } from "react-native-safe-area-context";
+import { FlatList, StyleSheet } from "react-native";
+import { StatusBar } from "expo-status-bar";
+import ListItem from '../../../components/ListItems';
+import ItemSeparator from '../../../components/ItemSeparator';
+import { useAsyncStorage } from "@react-native-async-storage/async-storage";
+import { useFocusEffect } from '@react-navigation/native';
 
 export default function Notes() {
+    const [items, setItems] = useState([]);
+    const { getItem, setItem } = useAsyncStorage("myItems");
+
+    useFocusEffect(
+        React.useCallback(() => {
+            const loadItems = async () => {
+                const storedItems = await getItem();
+                if (storedItems) {
+                    setItems(JSON.parse(storedItems));
+                }
+            };
+
+            loadItems();
+        }, [])
+    );
+
+    const onDeleteItem = (item) => {
+        const updatedItems = items.filter((i) => i.id !== item.id);
+        setItem(JSON.stringify(updatedItems))
+            .then(() => {
+                setItems(updatedItems);
+            })
+            .catch((e) => {
+                console.error(e);
+            });
+    };
+
+    const onCheckItem = (item) => {
+        const updatedItems = items.map((i) => (
+            i.id === item.id ? { ...i, completed: !i.completed } : i
+        ));
+        setItem(JSON.stringify(updatedItems))
+            .then(() => {
+                setItems(updatedItems);
+            })
+            .catch((e) => {
+                console.error(e);
+            });
+    };
+
     return (
-        <View>
-            <Text>Notes Component</Text>
-            {/* Hier kommen die Fertigen Einträge rein. */}
-        </View>
+        <SafeAreaView style={styles.container}>
+            <FlatList
+                style={styles.list}
+                data={items}
+                renderItem={({ item }) => (
+                    <ListItem item={item} onCheck={onCheckItem} onDelete={onDeleteItem} />
+                )}
+                ItemSeparatorComponent={() => <ItemSeparator />}
+            />
+            <StatusBar style="auto" />
+        </SafeAreaView>
     );
 }
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: '#fff',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    list: {
+        alignSelf: "stretch"
+    }
+});
