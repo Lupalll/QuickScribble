@@ -9,7 +9,7 @@ import ListItem from '../../../components/ListItems';
 import ItemSeparator from '../../../components/ItemSeparator';
 import { useAsyncStorage } from "@react-native-async-storage/async-storage";
 
-export default function HomeScreen() {
+export default function CreateNote() {
     const [newItemText, setNewItemText] = useState("");
     const [items, setItems] = useState([]);
 

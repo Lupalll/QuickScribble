@@ -1,7 +1,8 @@
-import { View,Text } from "react-native";
+import { Redirect } from "expo-router";
 
 export default function HomePage() {
-    <View>
-        <Text>Moin meiste</Text>
-    </View>
+    return (
+        <Redirect href="notes"/>
+    )
+
 }
