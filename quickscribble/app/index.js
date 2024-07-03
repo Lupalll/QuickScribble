@@ -1,13 +1,7 @@
-import { View, Text } from "react-native";
-import AppButton from "../components/AppButton";
-import { Link } from "expo-router";
+import { View,Text } from "react-native";
 
 export default function HomePage() {
-    return (
-        <View>
-                <Link href="/createnote" style={{ textDecorationLine: 'none' }}>
-                    <Text style={{ color: 'white' }}>create note</Text>
-                </Link>
-        </View>
-    );
+    <View>
+        <Text>Moin meiste</Text>
+    </View>
 }

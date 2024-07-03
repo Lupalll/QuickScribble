@@ -2,11 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { SafeAreaView } from "react-native-safe-area-context";
 import { FlatList, View, StyleSheet } from "react-native";
 import { StatusBar } from "expo-status-bar";
-import InputField from "../components/InputField";
-import AppButton from "../components/AppButton";
+import InputField from '../../../components/InputField';
+import AppButton from '../../../components/AppButton';
 import { randomUUID } from 'expo-crypto';
-import ListItem from "../components/ListItems";
-import ItemSeparator from "../components/ItemSeparator";
+import ListItem from '../../../components/ListItems';
+import ItemSeparator from '../../../components/ItemSeparator';
 import { useAsyncStorage } from "@react-native-async-storage/async-storage";
 
 export default function HomeScreen() {
