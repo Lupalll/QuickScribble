@@ -1,4 +1,3 @@
-import { View, Text } from "react-native";
 import React, { useState } from 'react';
 import { SafeAreaView } from "react-native-safe-area-context";
 import { FlatList, StyleSheet } from "react-native";
@@ -12,6 +11,7 @@ export default function Favorites() {
     const [items, setItems] = useState([]);
     const { getItem, setItem } = useAsyncStorage("myItems");
     const filteredItems = items.filter(item => item.favourited)
+    
     useFocusEffect(
         React.useCallback(() => {
             const loadItems = async () => {

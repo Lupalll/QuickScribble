@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import { SafeAreaView } from "react-native-safe-area-context";
-import { FlatList, StyleSheet } from "react-native";
+import { FlatList, StyleSheet, TouchableOpacity } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import ListItem from '../../../components/ListItems';
 import ItemSeparator from '../../../components/ItemSeparator';
 import { useAsyncStorage } from "@react-native-async-storage/async-storage";
 import { useFocusEffect } from '@react-navigation/native';
+import Ionicons from "@expo/vector-icons/Ionicons";
+import { Link } from "expo-router";
+
 
 export default function Notes() {
     const [items, setItems] = useState([]);
@@ -63,6 +66,20 @@ export default function Notes() {
 
     return (
         <SafeAreaView style={styles.container}>
+
+            <Link href={{ pathname: 'search' }} asChild>
+                <TouchableOpacity>
+                    <Ionicons
+                        size={28}
+                        style={{ marginBottom:-3,
+                        justifyContent: 'flex-end'
+                         }}
+                        name="search-outline"
+                        color="black"
+                    />
+                </TouchableOpacity>
+            </Link>
+
             <FlatList
                 style={styles.list}
                 data={items}

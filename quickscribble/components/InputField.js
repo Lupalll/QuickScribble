@@ -1,4 +1,4 @@
-import {ScrollView, StyleSheet, TextInput, View} from "react-native"
+import {ScrollView, StyleSheet, TextInput, } from "react-native"
 
 export default function InputField({placeholder, value, onChangeText}) {
 
@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
 
     },
     input: {
-        height: 700,
+        height: 650,
         width: 420,
         //marginTop: 18,
         //marginBottom: 1,
