@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
-import { Alert, ActivityIndicator, StyleSheet, Text, View, ScrollView } from "react-native";
-import { useLocalSearchParams } from "expo-router";
+import { Alert, ActivityIndicator, StyleSheet, Text, View, ScrollView, TouchableOpacity } from "react-native";
+import { Link, useLocalSearchParams } from "expo-router";
 import Space from "../components/Space";
 import { useAsyncStorage } from "@react-native-async-storage/async-storage";
+import Ionicons from "@expo/vector-icons/Ionicons"
 
 export default function NoteDetailScreen() {
     const [currentNote, setCurrentNote] = useState(null);
@@ -49,10 +50,24 @@ export default function NoteDetailScreen() {
 
     return (
         <ScrollView style={styles.container}>
+
             <Space height={60} />
+
+             <Link href={{ pathname: 'notes' }} asChild>
+                <TouchableOpacity>
+                    <Ionicons
+                        size={28}
+                        style={{ marginBottom:-3 }}
+                        name="arrow-back-outline"
+                        color="black"
+                    />
+                </TouchableOpacity>
+            </Link>
+            
             <Text style={styles.title}>{currentNote.title}</Text>
 
             <Text style={styles.content}>{currentNote.text}</Text>
+
         </ScrollView>
     );
 }
