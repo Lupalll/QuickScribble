@@ -13,9 +13,9 @@ export default function ListItem({onCheck, onDelete, item, onFav}) {
                         <Ionicons name="square-outline" size={24} color="black"/>
                 }
 
-            <Link href={{pathname: 'detailnote', params: {uuid: item.id}}} asChild>
+            <Link href={{pathname: 'detail', params: {uuid: item.id}}} asChild>
                 <TouchableOpacity>
-                        <Text style={styles.name}>{item.text}</Text>
+                        <Text style={styles.itemText}>{item.text}</Text>
                 </TouchableOpacity>
             </Link>
             </TouchableOpacity> 
@@ -35,7 +35,8 @@ const styles = StyleSheet.create({
     itemText: {
         flex: 1,
         marginLeft: 16,
-        alignSelf: "center"
+        alignSelf: "center",
+        justifyContent: 'center',
     },
     itemContainer: {
         paddingHorizontal: 16,
