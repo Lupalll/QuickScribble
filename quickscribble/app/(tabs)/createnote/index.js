@@ -6,19 +6,26 @@ import InputField from '../../../components/InputField';
 import AppButton from '../../../components/AppButton';
 import { randomUUID } from 'expo-crypto';
 import { useAsyncStorage } from "@react-native-async-storage/async-storage";
+import InputTitle from '../../../components/InputTitle';
 
 export default function CreateNote() {
     const [newItemText, setNewItemText] = useState("");
+    const [newItemTitle, setNewItemTitle] = useState("");
     const { getItem, setItem } = useAsyncStorage("myItems");
 
     const onChangeText = (text) => {
         setNewItemText(text);
     };
 
+    const onChangeTitle = (title) => {
+        setNewItemTitle(title);
+    };
+
     const onSaveButtonPress = async () => {
-        if (newItemText.trim() !== "") {
+        if (newItemTitle.trim() !== "" && newItemText.trim() !== "") {
             const newItem = {
                 id: randomUUID(),
+                title: newItemTitle.trim(),
                 text: newItemText.trim(),
                 completed: false,
             };
@@ -27,6 +34,7 @@ export default function CreateNote() {
             const updatedItems = [...items, newItem];
             setItem(JSON.stringify(updatedItems))
                 .then(() => {
+                    setNewItemTitle("");
                     setNewItemText("");
                 })
                 .catch((e) => {
@@ -38,7 +46,8 @@ export default function CreateNote() {
     return (
         <SafeAreaView style={styles.container}>
             <View>
-                <InputField placeholder="Item eingeben..." value={newItemText} onChangeText={onChangeText} />
+                <InputTitle placeholder="Titel eingeben..." value={newItemTitle} onChangeText={onChangeTitle} />
+                <InputField placeholder="Notiz eingeben..." value={newItemText} onChangeText={onChangeText} />
                 <AppButton onPress={onSaveButtonPress}>Save</AppButton>
             </View>
             <StatusBar style="auto" />

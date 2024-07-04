@@ -1,9 +1,9 @@
 import {ScrollView, StyleSheet, TextInput, View} from "react-native"
 
-export default function InputField({placeholder, value, onChangeText}) {
+export default function InputTitle({placeholder, value, onChangeText}) {
 
     return (
-        <ScrollView style={styles.container}>
+        <View style={styles.container}>
             <TextInput
                 style={styles.input}
                 value={value}
@@ -12,7 +12,7 @@ export default function InputField({placeholder, value, onChangeText}) {
                 multiline={true}
                 textAlignVertical="top"
             />
-        </ScrollView>
+        </View>
     );
 }
 
@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
 
     },
     input: {
-        height: 700,
+        height: 50,
         width: 420,
         //marginTop: 18,
         //marginBottom: 1,

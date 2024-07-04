@@ -3,7 +3,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { Link } from "expo-router";
 
 export default function ListItem({ onCheck, onDelete, item, onFav }) {
-    const truncatedText = item.text.length > 12 ? item.text.substring(0, 12) + '...' : item.text;
+
 
     return (
         <View style={styles.itemContainer}>
@@ -17,7 +17,7 @@ export default function ListItem({ onCheck, onDelete, item, onFav }) {
 
             <Link href={{ pathname: 'detail', params: { uuid: item.id } }} asChild>
                 <TouchableOpacity style={styles.textContainer}>
-                    <Text style={styles.itemText}>{truncatedText}</Text>
+                    <Text style={styles.itemText}>{item.title}</Text>
                 </TouchableOpacity>
             </Link>
 

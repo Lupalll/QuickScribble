@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Alert, ActivityIndicator, StyleSheet, Text, View } from "react-native";
+import { Alert, ActivityIndicator, StyleSheet, Text, View, ScrollView } from "react-native";
 import { useLocalSearchParams } from "expo-router";
 import Space from "../components/Space";
 import { useAsyncStorage } from "@react-native-async-storage/async-storage";
@@ -48,12 +48,12 @@ export default function NoteDetailScreen() {
     }
 
     return (
-        <View style={styles.container}>
+        <ScrollView style={styles.container}>
             <Space height={60} />
-            <Text style={styles.title}>UUID: {uuid}</Text>
-            <Text style={styles.label}>Text:</Text>
+            <Text style={styles.title}>{currentNote.title}</Text>
+
             <Text style={styles.content}>{currentNote.text}</Text>
-        </View>
+        </ScrollView>
     );
 }
 
@@ -75,12 +75,12 @@ const styles = StyleSheet.create({
         textAlign: "center",
     },
     label: {
-        fontSize: 18,
+        fontSize: 20,
         fontWeight: "600",
         marginTop: 20,
     },
     content: {
-        fontSize: 16,
+        fontSize: 18,
         marginTop: 10,
     },
     errorText: {
