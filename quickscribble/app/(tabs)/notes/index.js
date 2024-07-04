@@ -34,10 +34,10 @@ export default function Notes() {
                 console.error(e);
             });
     };
-    
-    const onCheckItem = (item) => {
+
+    const onFavItem = (item) => {
         const updatedItems = items.map((i) => (
-            i.id === item.id ? { ...i, completed: !i.completed } : i
+            i.id === item.id ? { ...i, favourited: !i.favourited } : i
         ));
         setItem(JSON.stringify(updatedItems))
             .then(() => {
@@ -48,9 +48,9 @@ export default function Notes() {
             });
     };
 
-    const onFavItem = (item) => {
+    const onCheckItem = (item) => {
         const updatedItems = items.map((i) => (
-            i.id === item.id ? { ...i, favourited: !i.favourited } : i
+            i.id === item.id ? { ...i, completed: !i.completed } : i
         ));
         setItem(JSON.stringify(updatedItems))
             .then(() => {
