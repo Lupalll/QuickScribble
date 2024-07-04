@@ -34,7 +34,7 @@ export default function Notes() {
                 console.error(e);
             });
     };
-
+    
     const onCheckItem = (item) => {
         const updatedItems = items.map((i) => (
             i.id === item.id ? { ...i, completed: !i.completed } : i

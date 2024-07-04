@@ -15,6 +15,16 @@ export default function CreateNote() {
         setNewItemText(text);
     };
 
+    /*
+    Link mit UUID als param auf detail ansicht
+    in detailansicht UUID auslesen
+    alleNotes ist ein Array aus AsyncStorage
+    for (note in alleNotes){
+        wenn note.id === uuid
+        schreibe die note in den State mit useState
+    }
+     */
+
     const onSaveButtonPress = async () => {
         if (newItemText.trim() !== "") {
             const newItem = {

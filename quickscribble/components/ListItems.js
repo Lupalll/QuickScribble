@@ -1,5 +1,6 @@
 import {StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import {Ionicons} from "@expo/vector-icons";
+import { Link } from "expo-router";
 
 export default function ListItem({onCheck, onDelete, item}) {
     return (
@@ -12,10 +13,14 @@ export default function ListItem({onCheck, onDelete, item}) {
                         <Ionicons name="square-outline" size={24} color="black"/>
                 }
             </TouchableOpacity>
-            <Text style={styles.itemText}>{item.text}</Text>
             <TouchableOpacity onPress={() => onDelete(item)}>
                 <Ionicons name="trash" size={24} color="red"/>
             </TouchableOpacity>
+            <Link href={{pathname: 'detailnote', params: {uuid: item.id}}} asChild>
+                <TouchableOpacity>
+                        <Text style={styles.name}>{item.text}</Text>
+                </TouchableOpacity>
+            </Link>
         </View>
     )
 }
