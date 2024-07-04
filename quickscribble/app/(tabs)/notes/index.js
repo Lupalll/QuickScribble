@@ -48,13 +48,26 @@ export default function Notes() {
             });
     };
 
+    const onFavItem = (item) => {
+        const updatedItems = items.map((i) => (
+            i.id === item.id ? { ...i, favourited: !i.favourited } : i
+        ));
+        setItem(JSON.stringify(updatedItems))
+            .then(() => {
+                setItems(updatedItems);
+            })
+            .catch((e) => {
+                console.error(e);
+            });
+    };
+
     return (
         <SafeAreaView style={styles.container}>
             <FlatList
                 style={styles.list}
                 data={items}
                 renderItem={({ item }) => (
-                    <ListItem item={item} onCheck={onCheckItem} onDelete={onDeleteItem} />
+                    <ListItem item={item} onCheck={onCheckItem} onDelete={onDeleteItem} onFav={onFavItem}/>
                 )}
                 ItemSeparatorComponent={() => <ItemSeparator />}
             />
