@@ -13,14 +13,18 @@ export default function CreateNote() {
     const [newItemTitle, setNewItemTitle] = useState("");
     const { getItem, setItem } = useAsyncStorage("myItems");
 
+
+    /* Erstellt ein neues item wenn man auf Save clickt */
     const onChangeText = (text) => {
         setNewItemText(text);
     };
 
+    /* erstellt einen Neuen Titel wenn man auf Save clickt */
     const onChangeTitle = (title) => {
         setNewItemTitle(title);
     };
 
+    /* speichert ein neues Item im AsyncStorage ab sobald man auf den save Button Clickt */
     const onSaveButtonPress = async () => {
         if (newItemTitle.trim() !== "" && newItemText.trim() !== "") {
             const newItem = {
