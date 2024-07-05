@@ -7,6 +7,7 @@ import AppButton from '../../../components/AppButton';
 import { randomUUID } from 'expo-crypto';
 import { useAsyncStorage } from "@react-native-async-storage/async-storage";
 import InputTitle from '../../../components/InputTitle';
+import Space from '../../../components/Space';
 
 export default function CreateNote() {
     const [newItemText, setNewItemText] = useState("");
@@ -48,14 +49,15 @@ export default function CreateNote() {
     };
 
     return (
-        <SafeAreaView style={styles.container}>
+        <View style={styles.container}>
             <View>
+                <Space  height={10} />
                 <InputTitle placeholder="Titel eingeben..." value={newItemTitle} onChangeText={onChangeTitle} />
                 <InputField placeholder="Notiz eingeben..." value={newItemText} onChangeText={onChangeText} />
                 <AppButton onPress={onSaveButtonPress}>Save</AppButton>
             </View>
             <StatusBar style="auto" />
-        </SafeAreaView>
+        </View>
     );
 }
 
