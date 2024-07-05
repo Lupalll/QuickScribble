@@ -8,7 +8,7 @@ import { useAsyncStorage } from "@react-native-async-storage/async-storage";
 import { useFocusEffect } from '@react-navigation/native';
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { Link } from "expo-router";
-
+import { View } from 'react-native';
 
 export default function Notes() {
     const [items, setItems] = useState([]);
@@ -51,40 +51,24 @@ export default function Notes() {
             });
     };
 
-    const onCheckItem = (item) => {
-        const updatedItems = items.map((i) => (
-            i.id === item.id ? { ...i, completed: !i.completed } : i
-        ));
-        setItem(JSON.stringify(updatedItems))
-            .then(() => {
-                setItems(updatedItems);
-            })
-            .catch((e) => {
-                console.error(e);
-            });
-    };
-
     return (
         <SafeAreaView style={styles.container}>
-
-            <Link href={{ pathname: 'search' }} asChild>
-                <TouchableOpacity>
-                    <Ionicons
-                        size={28}
-                        style={{ marginBottom:-3,
-                        justifyContent: 'flex-end'
-                         }}
-                        name="search-outline"
-                        color="black"
-                    />
-                </TouchableOpacity>
-            </Link>
-
+            <View style={styles.header}>
+                <Link href={{ pathname: 'search' }} asChild>
+                    <TouchableOpacity style={styles.search}>
+                        <Ionicons
+                            size={28}
+                            name="search-outline"
+                            color="black"
+                        />
+                    </TouchableOpacity>
+                </Link>
+            </View>
             <FlatList
                 style={styles.list}
                 data={items}
                 renderItem={({ item }) => (
-                    <ListItem item={item} onCheck={onCheckItem} onDelete={onDeleteItem} onFav={onFavItem}/>
+                    <ListItem item={item} onDelete={onDeleteItem} onFav={onFavItem} />
                 )}
                 ItemSeparatorComponent={() => <ItemSeparator />}
             />
@@ -97,10 +81,20 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
+        marginTop: -45,
+    },
+    header: {
+        flexDirection: 'row',
+        justifyContent: 'flex-end',
+        paddingHorizontal: 16,
+        paddingVertical: 8,
+        backgroundColor: '#F5F5F5',
     },
     list: {
-        alignSelf: "stretch"
+        paddingTop: 20,
+    },
+
+    search: {
+        marginTop: -20,
     }
 });
