@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { FlatList, StyleSheet, TouchableOpacity } from "react-native";
 import { StatusBar } from "expo-status-bar";
@@ -52,6 +51,16 @@ export default function Notes() {
             });
     };
 
+    const renderItem = ({ item }) => {
+        return (
+            <ListItem
+                item={{ ...item, title: item.title.slice(0, 25) }}
+                onDelete={onDeleteItem}
+                onFav={onFavItem}
+            />
+        );
+    };
+
     return (
         <View style={styles.container}>
             <View style={styles.header}>
@@ -68,9 +77,7 @@ export default function Notes() {
             <FlatList
                 style={styles.list}
                 data={items}
-                renderItem={({ item }) => (
-                    <ListItem item={item} onDelete={onDeleteItem} onFav={onFavItem} />
-                )}
+                renderItem={renderItem}
                 ItemSeparatorComponent={() => <Space height={5} />}
             />
             <StatusBar style="auto" />
