@@ -12,6 +12,8 @@ export default function Favorites() {
     const { getItem, setItem } = useAsyncStorage("myItems");
     const filteredItems = items.filter(item => item.favourited)
     
+
+    /* holt die Items aus dem Storage */
     useFocusEffect(
         React.useCallback(() => {
             const loadItems = async () => {
@@ -25,6 +27,7 @@ export default function Favorites() {
         }, [])
     );
     
+    /* schaut ob vor dem Item die Checkbox angeklickt wurde */
     const onCheckItem = (item) => {
         const updatedItems = items.map((i) => (
             i.id === item.id ? { ...i, completed: !i.completed } : i
@@ -38,6 +41,7 @@ export default function Favorites() {
             });
     };
 
+    /* Funktion für das Löschen eines Items */
     const onDeleteItem = (item) => {
         const updatedItems = items.filter((i) => i.id !== item.id);
         setItem(JSON.stringify(updatedItems))
@@ -49,6 +53,7 @@ export default function Favorites() {
             });
     };
 
+    /* Funktion für die Favorisierung eines Items */
     const onFavItem = (item) => {
         const updatedItems = items.map((i) => (
             i.id === item.id ? { ...i, favourited: !i.favourited } : i
@@ -63,7 +68,7 @@ export default function Favorites() {
     };
     
 
-    
+    /* anzeigen der Favoriten<s */
     return (
         
         <SafeAreaView style={styles.container}>

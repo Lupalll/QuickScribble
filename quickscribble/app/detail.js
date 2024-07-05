@@ -11,6 +11,7 @@ export default function NoteDetailScreen() {
     const { uuid } = useLocalSearchParams();
     const { getItem } = useAsyncStorage("myItems");
 
+    /* holt das ganze Item(Notiz) aus dem AsyncStorage um dieses dann in der Detail view anzuzeigen */
     useEffect(() => {
         if (!uuid) {
             return;
@@ -48,6 +49,7 @@ export default function NoteDetailScreen() {
         );
     }
 
+    /* anzeigen der detail view */
     return (
         <ScrollView style={styles.container}>
 
