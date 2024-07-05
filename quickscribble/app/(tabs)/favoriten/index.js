@@ -27,20 +27,6 @@ export default function Favorites() {
         }, [])
     );
     
-    /* schaut ob vor dem Item die Checkbox angeklickt wurde */
-    const onCheckItem = (item) => {
-        const updatedItems = items.map((i) => (
-            i.id === item.id ? { ...i, completed: !i.completed } : i
-        ));
-        setItem(JSON.stringify(updatedItems))
-            .then(() => {
-                setItems(updatedItems);
-            })
-            .catch((e) => {
-                console.error(e);
-            });
-    };
-
     /* Funktion für das Löschen eines Items */
     const onDeleteItem = (item) => {
         const updatedItems = items.filter((i) => i.id !== item.id);
@@ -76,7 +62,7 @@ export default function Favorites() {
                 style={styles.list}
                 data={filteredItems}
                 renderItem={({ item }) => (
-                    <ListItem item={item} onCheck={onCheckItem} onDelete={onDeleteItem} onFav={onFavItem}/>
+                    <ListItem item={item} onDelete={onDeleteItem} onFav={onFavItem}/>
                 )}
                 ItemSeparatorComponent={() => <ItemSeparator />}
             />
