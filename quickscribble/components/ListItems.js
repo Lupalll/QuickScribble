@@ -7,14 +7,6 @@ export default function ListItem({ onCheck, onDelete, item, onFav }) {
 
     return (
         <View style={styles.itemContainer}>
-            <TouchableOpacity onPress={() => onCheck(item)}>
-                <Ionicons
-                    name={item.completed ? "checkbox-outline" : "square-outline"}
-                    size={24}
-                    color={item.completed ? "green" : "black"}
-                />
-            </TouchableOpacity>
-
             <Link href={{ pathname: 'detail', params: { uuid: item.id } }} asChild>
                 <TouchableOpacity style={styles.textContainer}>
                     <Text style={styles.itemText}>{item.title}</Text>
