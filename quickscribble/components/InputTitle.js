@@ -9,7 +9,7 @@ export default function InputTitle({placeholder, value, onChangeText}) {
                 value={value}
                 onChangeText={onChangeText}
                 placeholder={placeholder}
-                multiline={true}
+                multiline={false}
                 textAlignVertical="top"
             />
         </View>
