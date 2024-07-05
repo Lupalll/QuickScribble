@@ -1,80 +1,57 @@
-import React, { useState } from 'react';
-import { FlatList, StyleSheet, View, Alert } from "react-native";
+import React, { useState, useCallback } from 'react';
+import { FlatList, StyleSheet, View, Text } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { useFocusEffect } from '@react-navigation/native';
 import { useAsyncStorage } from "@react-native-async-storage/async-storage";
-import ListItem from '../../../components/ListItems';
 import Space from '../../../components/Space';
-
-// Importe und andere Teile des Codes...
+import { useDeleteItem } from '../../../components/DeleteItem';
+import { useFavItem } from '../../../components/FavItem';
+import RenderItem from '../../../components/RenderItem';
 
 export default function Favorites() {
     const [items, setItems] = useState([]);
     const { getItem, setItem } = useAsyncStorage("myItems");
     const filteredItems = items.filter(item => item.favourited);
     
-    /* holt die Items aus dem Storage */
+    // Load items from storage on focus
     useFocusEffect(
-        React.useCallback(() => {
+        useCallback(() => {
             const loadItems = async () => {
                 const storedItems = await getItem();
                 if (storedItems) {
                     setItems(JSON.parse(storedItems));
                 }
             };
-
             loadItems();
         }, [])
     );
     
-    /* Funktion für das Löschen eines Items */
-    const onDeleteItem = (item) => {
-        Alert.alert(
-            'Eintrag löschen',
-            'Bist du dir sicher, dass du diesen Eintrag löschen möchtest?',
-            [
-                { text: 'Cancel', style: 'cancel' },
-                { text: 'Delete', onPress: () => deleteEntry(item), style: 'destructive' },
-            ]
-        );
-    };
+    // Delete item functionality
+    const onDeleteItem = useDeleteItem(items, setItems);
+    
+    // Favorite item functionality
+    const onFavItem = useFavItem(items, setItems);
+    
+    // Render each item with limited title using RenderItem component
+    const renderItem = ({ item }) => (
+        <RenderItem
+            item={item}
+            onDelete={() => onDeleteItem(item)}
+            onFav={() => onFavItem(item)}
+        />
+    );
 
-    const deleteEntry = (item) => {
-        const updatedItems = items.filter((i) => i.id !== item.id);
-        setItem(JSON.stringify(updatedItems))
-            .then(() => {
-                setItems(updatedItems);
-            })
-            .catch((e) => {
-                console.error(e);
-            });
+    // Display message when no favorites
+    if (filteredItems.length === 0) {
+        return (
+            <View style={styles.container}>
+                <Text style={styles.emptyMessage}>No favourites found</Text>
+                <StatusBar style="auto" />
+            </View>
+        );
     }
 
-    /* Funktion für die Favorisierung eines Items */
-    const onFavItem = (item) => {
-        const updatedItems = items.map((i) => (
-            i.id === item.id ? { ...i, favourited: !i.favourited } : i
-        ));
-        setItem(JSON.stringify(updatedItems))
-            .then(() => {
-                setItems(updatedItems);
-            })
-            .catch((e) => {
-                console.error(e);
-            });
-    };
-    
-    /* renderItem Funktion mit begrenztem Titel */
-    const renderItem = ({ item }) => {
-        return (
-            <ListItem
-                item={{ ...item, title: item.title.slice(0, 25) }}
-                onDelete={onDeleteItem}
-                onFav={onFavItem}
-            />
-        );
-    };
-
+    // Render list of favorite items
     return (
         <View style={styles.container}>
             <FlatList
@@ -98,5 +75,10 @@ const styles = StyleSheet.create({
     list: {
         alignSelf: "stretch",
         marginTop: 20,
-    }
+    },
+    emptyMessage: {
+        fontSize: 24,
+        color: 'gray',
+        marginBottom: 100,
+    },
 });

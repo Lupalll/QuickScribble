@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
         display: 'flex',
         flexDirection: 'row',
         paddingHorizontal: 16,
-        paddingVertical: 8
+        paddingVertical: 8,
     },
     circle: {
         backgroundColor: '#65558F',
@@ -27,9 +27,8 @@ const styles = StyleSheet.create({
         borderWidth: 2,
         paddingVertical: 8,
         paddingHorizontal: 24,
-        alignSelf: 'flex-start'
+        alignSelf: 'flex-start',
     },
-
     headerTitle: {
         fontSize: 20,
         fontWeight: 'bold',

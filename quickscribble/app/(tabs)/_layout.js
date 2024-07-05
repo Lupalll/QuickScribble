@@ -3,6 +3,7 @@ import { Tabs } from "expo-router";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { StyleSheet } from "react-native";
 import CustomHeader from '../../components/CustomHeader';
+
 export default function HomeLayout() {
     return (
         <Tabs style={styles.container}>

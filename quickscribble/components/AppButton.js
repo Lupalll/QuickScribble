@@ -1,12 +1,12 @@
-import {forwardRef} from "react"
-import {StyleSheet, Text, TouchableOpacity} from "react-native"
+import { forwardRef } from "react";
+import { StyleSheet, Text, TouchableOpacity } from "react-native";
 
-function AppButton({onPress, children}, ref) {
+function AppButton({ onPress, children }, ref) {
     return (
         <TouchableOpacity ref={ref} onPress={onPress} style={styles.button}>
             <Text style={styles.text}>{children}</Text>
         </TouchableOpacity>
-    )
+    );
 }
 
 const styles = StyleSheet.create({
@@ -22,8 +22,8 @@ const styles = StyleSheet.create({
     text: {
         color: "#fff",
         fontWeight: "bold",
-        alignSelf: "center"
+        alignSelf: "center",
     },
-})
+});
 
-export default forwardRef(AppButton)
+export default forwardRef(AppButton);

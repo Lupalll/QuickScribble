@@ -11,7 +11,7 @@ export default function NoteDetailScreen() {
     const { uuid } = useLocalSearchParams();
     const { getItem } = useAsyncStorage("myItems");
 
-    /* holt das ganze Item(Notiz) aus dem AsyncStorage um dieses dann in der Detail view anzuzeigen */
+    // holt das ganze Item (Notiz) aus dem AsyncStorage um dieses dann in der Detail view anzuzeigen
     useEffect(() => {
         if (!uuid) {
             return;
@@ -49,17 +49,17 @@ export default function NoteDetailScreen() {
         );
     }
 
-    /* anzeigen der detail view */
+    // Anzeige der Detailansicht
     return (
         <ScrollView style={styles.container}>
 
             <Space height={60} />
 
-             <Link href={{ pathname: 'notes' }} asChild>
+            <Link href={{ pathname: 'notes' }} asChild>
                 <TouchableOpacity>
                     <Ionicons
                         size={28}
-                        style={{ marginBottom:-3 }}
+                        style={{ marginBottom: -3 }}
                         name="arrow-back-outline"
                         color="black"
                     />
@@ -90,11 +90,6 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
         marginBottom: 20,
         textAlign: "center",
-    },
-    label: {
-        fontSize: 20,
-        fontWeight: "600",
-        marginTop: 20,
     },
     content: {
         fontSize: 18,

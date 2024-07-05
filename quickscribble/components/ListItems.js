@@ -1,10 +1,9 @@
+import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { Link } from "expo-router";
 
-export default function ListItem({ onCheck, onDelete, item, onFav }) {
-
-
+export default function ListItem({ onDelete, item, onFav }) {
     return (
         <View style={styles.itemContainer}>
             <Link href={{ pathname: 'detail', params: { uuid: item.id } }} asChild>

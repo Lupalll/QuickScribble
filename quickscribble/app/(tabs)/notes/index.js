@@ -1,93 +1,72 @@
-import React, { useState } from 'react';
-import { FlatList, StyleSheet, TouchableOpacity, View, Alert } from "react-native";
+import React, { useState, useCallback } from 'react';
+import { FlatList, StyleSheet, View, Text } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { useAsyncStorage } from "@react-native-async-storage/async-storage";
 import { useFocusEffect } from '@react-navigation/native';
-import Ionicons from "@expo/vector-icons/Ionicons";
-import { Link } from "expo-router";
 import ListItem from '../../../components/ListItems';
 import Space from '../../../components/Space';
+import { useFavItem } from '../../../components/FavItem';
+import { useDeleteItem } from '../../../components/DeleteItem';
 
 export default function Notes() {
     const [items, setItems] = useState([]);
-    const { getItem, setItem } = useAsyncStorage("myItems");
+    const { getItem } = useAsyncStorage("myItems");
 
+    // Laden der Notizen beim Fokussieren der Komponente
     useFocusEffect(
-        React.useCallback(() => {
+        useCallback(() => {
             const loadItems = async () => {
-                const storedItems = await getItem();
-                if (storedItems) {
-                    setItems(JSON.parse(storedItems));
+                try {
+                    const storedItems = await getItem();
+                    if (storedItems) {
+                        setItems(JSON.parse(storedItems));
+                    } else {
+                        setItems([]);
+                    }
+                } catch (error) {
+                    console.error('Error loading notes:', error);
                 }
             };
 
             loadItems();
-        }, [])
+        }, [getItem])
     );
 
-    const onDeleteItem = (item) => {
-        Alert.alert(
-            'Eintrag löschen',
-            'Bist du dir sicher, dass du diesen Eintrag löschen möchtest?',
-            [
-                { text: 'Cancel', style: 'cancel' },
-                { text: 'Delete', onPress: () => deleteEntry(item), style: 'destructive' },
-            ]
-        );
-    };
+    // Funktionen für das Löschen und Favorisieren von Notizen
+    const onDeleteItem = useDeleteItem(items, setItems);
+    const onFavItem = useFavItem(items, setItems);
 
-    const deleteEntry = (item) => {
-        const updatedItems = items.filter((i) => i.id !== item.id);
-        setItem(JSON.stringify(updatedItems))
-            .then(() => {
-                setItems(updatedItems);
-            })
-            .catch((e) => {
-                console.error(e);
-            });
-    }
-
-    /* erstellt eine Liste, speichert die liste im speicher, aktualisiert, Fehler falls nicht geklapt */
-    const onFavItem = (item) => {
-        const updatedItems = items.map((i) => (
-            i.id === item.id ? { ...i, favourited: !i.favourited } : i
-        ));
-        setItem(JSON.stringify(updatedItems))
-            .then(() => {
-                setItems(updatedItems);
-            })
-            .catch((e) => {
-                console.error(e);
-            });
-    };
-
+    // Render-Funktion für jedes Listenelement
     const renderItem = ({ item }) => {
         return (
             <ListItem
                 item={{ ...item, title: item.title.slice(0, 25) }}
-                onDelete={onDeleteItem}
-                onFav={onFavItem}
+                onDelete={() => onDeleteItem(item)}
+                onFav={() => onFavItem(item)}
             />
         );
     };
 
+    // Anzeige, wenn keine Notizen vorhanden sind
+    if (items.length === 0) {
+        return (
+            <View style={styles.container}>
+                <View style={styles.centeredContainer}>
+                    <Text style={styles.emptyMessage}>You've got no notes</Text>
+                </View>
+                <StatusBar style="auto" />
+            </View>
+        );
+    }
+
+    // Ansonsten, wenn Notizen vorhanden sind, zeige sie in einer FlatList an
     return (
         <View style={styles.container}>
-            <View style={styles.header}>
-                <Link href={{ pathname: 'search' }} asChild>
-                    <TouchableOpacity style={styles.search}>
-                        <Ionicons
-                            size={28}
-                            name="search-outline"
-                            color="black"
-                        />
-                    </TouchableOpacity>
-                </Link>
-            </View>
             <FlatList
                 style={styles.list}
                 data={items}
                 renderItem={renderItem}
+                keyExtractor={(item) => item.id}
                 ItemSeparatorComponent={() => <Space height={5} />}
             />
             <StatusBar style="auto" />
@@ -100,22 +79,17 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#fff',
     },
-    header: {
-        flexDirection: 'row',
-        justifyContent: 'flex-end',
-        paddingHorizontal: 16,
-        backgroundColor: '#F5F5F5',
-        position: 'absolute',
-        top: -45,
-        right: 16
+    centeredContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginBottom: 100,
+    },
+    emptyMessage: {
+        fontSize: 24,
+        color: 'gray',
     },
     list: {
         paddingTop: 20,
     },
-    search: {
-    },
-    text: {
-        position: 'relative',
-        left: 20
-    }
 });
