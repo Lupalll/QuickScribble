@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
-import { FlatList, StyleSheet, TouchableOpacity } from "react-native";
+import { FlatList, StyleSheet, TouchableOpacity, View, Alert } from "react-native";
 import { StatusBar } from "expo-status-bar";
-import ListItem from '../../../components/ListItems';
 import { useAsyncStorage } from "@react-native-async-storage/async-storage";
 import { useFocusEffect } from '@react-navigation/native';
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { Link } from "expo-router";
-import { View, Text, Alert } from 'react-native';
+import ListItem from '../../../components/ListItems';
 import Space from '../../../components/Space';
 
 export default function Notes() {
@@ -48,6 +47,7 @@ export default function Notes() {
             });
     }
 
+    /* erstellt eine Liste, speichert die liste im speicher, aktualisiert, Fehler falls nicht geklapt */
     const onFavItem = (item) => {
         const updatedItems = items.map((i) => (
             i.id === item.id ? { ...i, favourited: !i.favourited } : i

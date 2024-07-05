@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { Alert, ActivityIndicator, StyleSheet, Text, View, ScrollView, TouchableOpacity } from "react-native";
 import { Link, useLocalSearchParams } from "expo-router";
-import Space from "../components/Space";
 import { useAsyncStorage } from "@react-native-async-storage/async-storage";
 import Ionicons from "@expo/vector-icons/Ionicons"
+import Space from "../components/Space";
 
 export default function NoteDetailScreen() {
     const [currentNote, setCurrentNote] = useState(null);

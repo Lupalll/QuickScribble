@@ -2,10 +2,10 @@
 import React, { useState } from 'react';
 import { StyleSheet, View } from "react-native";
 import { StatusBar } from "expo-status-bar";
-import InputField from '../../../components/InputField';
-import AppButton from '../../../components/AppButton';
 import { randomUUID } from 'expo-crypto';
 import { useAsyncStorage } from "@react-native-async-storage/async-storage";
+import InputField from '../../../components/InputField';
+import AppButton from '../../../components/AppButton';
 import InputTitle from '../../../components/InputTitle';
 
 export default function CreateNote() {
@@ -50,7 +50,7 @@ export default function CreateNote() {
     return (
         <View style={styles.container}>
             <View>
-                <InputTitle placeholder="Titel eingeben..." value={newItemTitle} onChangeText={onChangeTitle} />
+                <InputTitle placeholder="Titel eingeben..." value={newItemTitle} onChangeText={onChangeTitle} /> {/* bindet den zustand newItemTitle an das Eingabefeld */}
                 <InputField placeholder="Notiz eingeben..." value={newItemText} onChangeText={onChangeText} />
                 <AppButton onPress={onSaveButtonPress}>Save</AppButton>
             </View>
