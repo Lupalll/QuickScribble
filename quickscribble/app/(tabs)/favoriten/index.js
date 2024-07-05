@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { SafeAreaView } from "react-native-safe-area-context";
-import { FlatList, StyleSheet, View } from "react-native";
+import { FlatList, StyleSheet, View, Alert } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import ListItem from '../../../components/ListItems';
 import ItemSeparator from '../../../components/ItemSeparator';
@@ -31,6 +31,17 @@ export default function Favorites() {
     
     /* Funktion für das Löschen eines Items */
     const onDeleteItem = (item) => {
+        Alert.alert(
+            'Eintrag löschen',
+            'Bist du dir sicher, dass du diesen Eintrag löschen möchtest?',
+            [
+                { text: 'Cancel', style: 'cancel' },
+                { text: 'Delete', onPress: () => deleteEntry(item), style: 'destructive' },
+            ]
+        );
+    };
+
+    const deleteEntry = (item) => {
         const updatedItems = items.filter((i) => i.id !== item.id);
         setItem(JSON.stringify(updatedItems))
             .then(() => {
@@ -39,7 +50,7 @@ export default function Favorites() {
             .catch((e) => {
                 console.error(e);
             });
-    };
+    }
 
     /* Funktion für die Favorisierung eines Items */
     const onFavItem = (item) => {
