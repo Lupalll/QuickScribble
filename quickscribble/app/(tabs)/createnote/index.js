@@ -1,11 +1,11 @@
-
 import React, { useState } from 'react';
-import { StyleSheet, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { View, StyleSheet } from "react-native";
 import { StatusBar } from "expo-status-bar";
-import { randomUUID } from 'expo-crypto';
-import { useAsyncStorage } from "@react-native-async-storage/async-storage";
 import InputField from '../../../components/InputField';
 import AppButton from '../../../components/AppButton';
+import { randomUUID } from 'expo-crypto';
+import { useAsyncStorage } from "@react-native-async-storage/async-storage";
 import InputTitle from '../../../components/InputTitle';
 
 export default function CreateNote() {
@@ -24,7 +24,7 @@ export default function CreateNote() {
         setNewItemTitle(title);
     };
 
-    /* speichert ein neues Item im AsyncStorage ab sobald man auf den save Button Clickt */
+    
     const onSaveButtonPress = async () => {
         if (newItemTitle.trim() !== "" && newItemText.trim() !== "") {
             const newItem = {
@@ -48,14 +48,14 @@ export default function CreateNote() {
     };
 
     return (
-        <View style={styles.container}>
+        <SafeAreaView style={styles.container}>
             <View>
-                <InputTitle placeholder="Titel eingeben..." value={newItemTitle} onChangeText={onChangeTitle} /> {/* bindet den zustand newItemTitle an das Eingabefeld */}
+                <InputTitle placeholder="Titel eingeben..." value={newItemTitle} onChangeText={onChangeTitle} />
                 <InputField placeholder="Notiz eingeben..." value={newItemText} onChangeText={onChangeText} />
                 <AppButton onPress={onSaveButtonPress}>Save</AppButton>
             </View>
             <StatusBar style="auto" />
-        </View>
+        </SafeAreaView>
     );
 }
 
@@ -66,6 +66,4 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
-
-    ui: {}
 });
