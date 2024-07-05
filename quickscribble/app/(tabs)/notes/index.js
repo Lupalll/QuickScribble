@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { FlatList, StyleSheet, TouchableOpacity } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import ListItem from '../../../components/ListItems';
-import ItemSeparator from '../../../components/ItemSeparator';
 import { useAsyncStorage } from "@react-native-async-storage/async-storage";
 import { useFocusEffect } from '@react-navigation/native';
 import Ionicons from "@expo/vector-icons/Ionicons";

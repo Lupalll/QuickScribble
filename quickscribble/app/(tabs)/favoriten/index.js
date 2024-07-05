@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
-import { SafeAreaView } from "react-native-safe-area-context";
 import { FlatList, StyleSheet, View, Alert } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import ListItem from '../../../components/ListItems';
-import ItemSeparator from '../../../components/ItemSeparator';
 import { useAsyncStorage } from "@react-native-async-storage/async-storage";
 import { useFocusEffect } from '@react-navigation/native';
 import Space from '../../../components/Space';
