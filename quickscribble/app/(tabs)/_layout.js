@@ -5,7 +5,7 @@ import { StyleSheet } from "react-native";
 import CustomHeader from '../../components/CustomHeader';
 export default function HomeLayout() {
     return (
-        <Tabs>
+        <Tabs style={styles.container}>
             <Tabs.Screen
                 name="notes/index"
                 options={{
@@ -66,6 +66,8 @@ const styles = StyleSheet.create({
         fontSize: 12,
         fontWeight: 'bold',
         color: '#1D1B20',
-        backgroundColor: '#F3EDF7'
     },
+    container: {
+        backgroundColor: '#F3EDF7'
+    }
 });

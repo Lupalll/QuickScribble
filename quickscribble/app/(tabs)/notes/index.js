@@ -7,7 +7,7 @@ import { useAsyncStorage } from "@react-native-async-storage/async-storage";
 import { useFocusEffect } from '@react-navigation/native';
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { Link } from "expo-router";
-import { View, Text } from 'react-native';
+import { View, Text, Alert } from 'react-native';
 import Space from '../../../components/Space';
 
 export default function Notes() {
@@ -28,6 +28,17 @@ export default function Notes() {
     );
 
     const onDeleteItem = (item) => {
+        Alert.alert(
+            'Eintrag löschen',
+            'Bist du dir sicher, dass du diesen Eintrag löschen möchtest?',
+            [
+                { text: 'Cancel', style: 'cancel' },
+                { text: 'Delete', onPress: () => deleteEntry(item), style: 'destructive' },
+            ]
+        );
+    };
+
+    const deleteEntry = (item) => {
         const updatedItems = items.filter((i) => i.id !== item.id);
         setItem(JSON.stringify(updatedItems))
             .then(() => {
@@ -36,7 +47,7 @@ export default function Notes() {
             .catch((e) => {
                 console.error(e);
             });
-    };
+    }
 
     const onFavItem = (item) => {
         const updatedItems = items.map((i) => (
