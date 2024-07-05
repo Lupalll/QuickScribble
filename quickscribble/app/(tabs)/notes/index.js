@@ -1,5 +1,5 @@
+
 import React, { useState } from 'react';
-import { SafeAreaView } from "react-native-safe-area-context";
 import { FlatList, StyleSheet, TouchableOpacity } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import ListItem from '../../../components/ListItems';
@@ -8,8 +8,9 @@ import { useAsyncStorage } from "@react-native-async-storage/async-storage";
 import { useFocusEffect } from '@react-navigation/native';
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { Link } from "expo-router";
-import { View } from 'react-native';
+import { View, Text } from 'react-native';
 import Space from '../../../components/Space';
+
 export default function Notes() {
     const [items, setItems] = useState([]);
     const { getItem, setItem } = useAsyncStorage("myItems");
@@ -52,7 +53,7 @@ export default function Notes() {
     };
 
     return (
-        <SafeAreaView style={styles.container}>
+        <View style={styles.container}>
             <View style={styles.header}>
                 <Link href={{ pathname: 'search' }} asChild>
                     <TouchableOpacity style={styles.search}>
@@ -73,7 +74,7 @@ export default function Notes() {
                 ItemSeparatorComponent={() => <Space height={5} />}
             />
             <StatusBar style="auto" />
-        </SafeAreaView>
+        </View>
     );
 }
 
@@ -81,20 +82,23 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#fff',
-        marginTop: -45,
     },
     header: {
         flexDirection: 'row',
         justifyContent: 'flex-end',
         paddingHorizontal: 16,
-        paddingVertical: 8,
         backgroundColor: '#F5F5F5',
+        position: 'absolute',
+        top: -45,
+        right: 16
     },
     list: {
         paddingTop: 20,
     },
-
     search: {
-        marginTop: -20,
+    },
+    text: {
+        position: 'relative',
+        left: 20
     }
 });

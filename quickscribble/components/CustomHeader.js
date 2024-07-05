@@ -5,7 +5,7 @@ export default function CustomHeader({ title }) {
     return (
         <View style={styles.headerContainer}>
             <View style={styles.circle}>
-            <Text style={styles.headerTitle}>{title}</Text>
+                <Text style={styles.headerTitle}>{title}</Text>
             </View>
         </View>
     );
@@ -13,27 +13,26 @@ export default function CustomHeader({ title }) {
 
 const styles = StyleSheet.create({
     headerContainer: {
-        height: 80,
-        justifyContent: 'center',
+        display: 'flex',
+        flexDirection: 'row',
         paddingHorizontal: 16,
-        position: 'relative',
+        paddingVertical: 8
     },
     circle: {
-        width: 150,
-        height: 50,
         backgroundColor: '#65558F',
         borderRadius: 25,
         justifyContent: 'center',
         alignItems: 'center',
         borderColor: '#6D4C41',
         borderWidth: 2,
-        marginTop: 100,
+        paddingVertical: 8,
+        paddingHorizontal: 24,
+        alignSelf: 'flex-start'
     },
 
     headerTitle: {
         fontSize: 20,
         fontWeight: 'bold',
         color: '#fff',
-        position: 'absolute',
     },
 });

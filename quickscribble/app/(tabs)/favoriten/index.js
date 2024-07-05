@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { SafeAreaView } from "react-native-safe-area-context";
-import { FlatList, StyleSheet } from "react-native";
+import { FlatList, StyleSheet, View } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import ListItem from '../../../components/ListItems';
 import ItemSeparator from '../../../components/ItemSeparator';
@@ -58,7 +58,7 @@ export default function Favorites() {
     /* anzeigen der Favoriten<s */
     return (
         
-        <SafeAreaView style={styles.container}>
+        <View style={styles.container}>
             <FlatList
                 style={styles.list}
                 data={filteredItems}
@@ -68,7 +68,7 @@ export default function Favorites() {
                 ItemSeparatorComponent={() => <Space height={5} />}
             />
             <StatusBar style="auto" />
-        </SafeAreaView>
+        </View>
     
     )
 

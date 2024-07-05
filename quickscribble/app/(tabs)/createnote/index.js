@@ -1,6 +1,6 @@
+
 import React, { useState } from 'react';
-import { SafeAreaView } from "react-native-safe-area-context";
-import { View, StyleSheet } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import InputField from '../../../components/InputField';
 import AppButton from '../../../components/AppButton';
@@ -48,14 +48,14 @@ export default function CreateNote() {
     };
 
     return (
-        <SafeAreaView style={styles.container}>
+        <View style={styles.container}>
             <View>
                 <InputTitle placeholder="Titel eingeben..." value={newItemTitle} onChangeText={onChangeTitle} />
                 <InputField placeholder="Notiz eingeben..." value={newItemText} onChangeText={onChangeText} />
                 <AppButton onPress={onSaveButtonPress}>Save</AppButton>
             </View>
             <StatusBar style="auto" />
-        </SafeAreaView>
+        </View>
     );
 }
 
