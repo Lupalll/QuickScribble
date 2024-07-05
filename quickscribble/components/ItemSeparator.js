@@ -8,7 +8,6 @@ export default function ItemSeparator() {
 
 const styles = StyleSheet.create({
     line: {
-        borderBottomWidth: 0.5,
-        borderColor: 'gray'
+        color: "ff0000"
     }
 })

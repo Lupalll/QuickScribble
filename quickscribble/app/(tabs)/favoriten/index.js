@@ -6,6 +6,7 @@ import ListItem from '../../../components/ListItems';
 import ItemSeparator from '../../../components/ItemSeparator';
 import { useAsyncStorage } from "@react-native-async-storage/async-storage";
 import { useFocusEffect } from '@react-navigation/native';
+import Space from '../../../components/Space';
 
 export default function Favorites() {
     const [items, setItems] = useState([]);
@@ -64,7 +65,7 @@ export default function Favorites() {
                 renderItem={({ item }) => (
                     <ListItem item={item} onDelete={onDeleteItem} onFav={onFavItem}/>
                 )}
-                ItemSeparatorComponent={() => <ItemSeparator />}
+                ItemSeparatorComponent={() => <Space height={5} />}
             />
             <StatusBar style="auto" />
         </SafeAreaView>

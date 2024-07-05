@@ -9,7 +9,7 @@ import { useFocusEffect } from '@react-navigation/native';
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { Link } from "expo-router";
 import { View } from 'react-native';
-
+import Space from '../../../components/Space';
 export default function Notes() {
     const [items, setItems] = useState([]);
     const { getItem, setItem } = useAsyncStorage("myItems");
@@ -70,7 +70,7 @@ export default function Notes() {
                 renderItem={({ item }) => (
                     <ListItem item={item} onDelete={onDeleteItem} onFav={onFavItem} />
                 )}
-                ItemSeparatorComponent={() => <ItemSeparator />}
+                ItemSeparatorComponent={() => <Space height={5} />}
             />
             <StatusBar style="auto" />
         </SafeAreaView>
